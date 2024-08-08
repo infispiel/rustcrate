@@ -1,6 +1,4 @@
-use std::io;
-use serde;
-use serde_json;
+use serde_json::{Value,json};
 use chrono::{self, Utc};
 
 const ROCRATE_SPEC : &str = "https://w3id.org/ro/crate/1.1";
@@ -19,9 +17,9 @@ fn get_time_right_now() -> chrono::DateTime<Utc> {
 }
 
 // accepts time in UTC; convert before calling
-fn generate_root(name: &str, desc: &str, date_published: chrono::DateTime<Utc>) -> serde_json::Value {
+fn generate_root(name: &str, desc: &str, date_published: chrono::DateTime<Utc>) -> Value {
     // todo: add license parameter
-    let rocrate_root: serde_json::Value = serde_json::json!({
+    let rocrate_root: Value = json!({
         "@id": "./",
         "@type": "Dataset",
         "hasPart": [
@@ -36,15 +34,15 @@ fn generate_root(name: &str, desc: &str, date_published: chrono::DateTime<Utc>) 
     return rocrate_root
 }
 
-fn generate_boilerplate_context(root_context: serde_json::Value) {
-    let rocrate_metadata_descriptor: serde_json::Value = serde_json::json!({
+fn generate_boilerplate_context(root_context: Value) {
+    let rocrate_metadata_descriptor: Value = json!({
         "@id": "ro-crate-metadata.json",
         "@type": "CreativeWork",
         "conformsTo": {"@id": ROCRATE_SPEC},
         "about": {"@id": "./"}
     });
 
-    let context: serde_json::Value = serde_json::json!({
+    let context: Value = json!({
         "@context": format!("{ROCRATE_SPEC}/context"),
         "@graph": [
             rocrate_metadata_descriptor,
