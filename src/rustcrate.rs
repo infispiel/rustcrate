@@ -1,5 +1,5 @@
 use serde_json::{Value,json};
-use chrono::{self, Utc};
+use chrono::{self, Utc, DateTime};
 
 const ROCRATE_SPEC : &str = "https://w3id.org/ro/crate/1.1";
 
@@ -12,12 +12,12 @@ pub fn do_the_thing() {
 /// 
 /// # Output
 /// chrono::DateTime<Utc>
-fn get_time_right_now() -> chrono::DateTime<Utc> {
-    chrono::prelude::Utc::now()
+fn get_time_right_now() -> DateTime<Utc> {
+    Utc::now()
 }
 
 // accepts time in UTC; convert before calling
-fn generate_root(name: &str, desc: &str, date_published: chrono::DateTime<Utc>) -> Value {
+fn generate_root(name: &str, desc: &str, date_published: DateTime<Utc>) -> Value {
     // todo: add license parameter
     json!({
         "@id": "./",
