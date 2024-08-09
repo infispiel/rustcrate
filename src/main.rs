@@ -13,13 +13,13 @@ fn main() {
 /// # Output
 /// chrono::DateTime<Utc>
 fn get_time_right_now() -> chrono::DateTime<Utc> {
-    return chrono::prelude::Utc::now();
+    chrono::prelude::Utc::now()
 }
 
 // accepts time in UTC; convert before calling
 fn generate_root(name: &str, desc: &str, date_published: chrono::DateTime<Utc>) -> Value {
     // todo: add license parameter
-    let rocrate_root: Value = json!({
+    json!({
         "@id": "./",
         "@type": "Dataset",
         "hasPart": [
@@ -29,9 +29,7 @@ fn generate_root(name: &str, desc: &str, date_published: chrono::DateTime<Utc>) 
         "description": desc,
         "datePublished": date_published,
         //"license": {}
-    });
-
-    return rocrate_root
+    })
 }
 
 fn generate_boilerplate_context(root_context: Value) {
@@ -51,5 +49,5 @@ fn generate_boilerplate_context(root_context: Value) {
     });
 
     
-    println!("{}", context.to_string());
+    println!("{}", context);
 }
