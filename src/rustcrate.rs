@@ -3,7 +3,7 @@ use chrono::{self, Utc};
 
 const ROCRATE_SPEC : &str = "https://w3id.org/ro/crate/1.1";
 
-fn main() {
+pub fn do_the_thing() {
     println!("Hello, world!");
     generate_boilerplate_context(generate_root("asd", "fds", get_time_right_now()));
 }
@@ -48,6 +48,5 @@ fn generate_boilerplate_context(root_context: Value) {
         ]
     });
 
-    
     println!("{}", context);
 }
